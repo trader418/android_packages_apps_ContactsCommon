@@ -821,28 +821,27 @@ public class MoreContactUtils {
     }
 
     public static boolean sdCardExist(Context context) {
-        boolean ret = false;
+        String sdcardPath = getSDPath(context);
+        if (sdcardPath == null) {
+            return false;
+        }
         StorageManager mStorageManager = (StorageManager) context
                 .getSystemService(Context.STORAGE_SERVICE);
-        if (mStorageManager.getVolumeState(getSDPath(context)).equals(
-                android.os.Environment.MEDIA_MOUNTED)) {
-            ret = true;
-        }
-        return ret;
+        return mStorageManager.getVolumeState(sdcardPath).equals(
+                android.os.Environment.MEDIA_MOUNTED);
     }
 
     public static String getSDPath(Context context) {
-        String sd = null;
         StorageManager mStorageManager = (StorageManager) context
                 .getSystemService(Context.STORAGE_SERVICE);
         StorageVolume[] volumes = mStorageManager.getVolumeList();
         for (int i = 0; i < volumes.length; i++) {
             if (volumes[i].isRemovable() && volumes[i].allowMassStorage()
                     && volumes[i].getDescription(context).contains("SD")) {
-                sd = volumes[i].getPath();
+                return volumes[i].getPath();
             }
         }
-        return sd;
+        return null;
     }
 
     /**
