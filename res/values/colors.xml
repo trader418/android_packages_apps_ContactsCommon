@@ -63,6 +63,8 @@
     <color name="textColorIconOverlay">#fff</color>
     <color name="textColorIconOverlayShadow">#000</color>
 
+    <color name="contacts_list_item_color">#ff000000</color>
+
     <!-- Background colors for LetterTileDrawables. This set of colors is a subset of
         https://spec.googleplex.com/quantumpalette#extended which passes Google Accessibility
         Requirements for the color in question on white with >= 3.0 contrast. We used
