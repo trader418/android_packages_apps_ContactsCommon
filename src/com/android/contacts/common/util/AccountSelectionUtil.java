@@ -131,7 +131,7 @@ public class AccountSelectionUtil {
             DialogInterface.OnClickListener onClickListener,
             DialogInterface.OnCancelListener onCancelListener, boolean includeSIM) {
         final AccountTypeManager accountTypes = AccountTypeManager.getInstance(context);
-        List<AccountWithDataSet> writableAccountList = accountTypes.getAccounts(true);
+        List<AccountWithDataSet> writableAccountList;
         if (includeSIM) {
             writableAccountList = accountTypes.getAccounts(true);
         } else {
@@ -227,7 +227,7 @@ public class AccountSelectionUtil {
             importIntent.putExtra("account_type", account.type);
             importIntent.putExtra("data_set", account.dataSet);
         }
-        importIntent.putExtra("subscription_id", (Integer) subscriptionId);
+        importIntent.putExtra("sim_index", SubscriptionManager.getPhoneId(subscriptionId));
         importIntent.setClassName("com.android.phone", "com.android.phone.SimContacts");
         context.startActivity(importIntent);
     }
